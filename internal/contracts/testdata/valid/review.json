@@ -1,0 +1,10 @@
+{
+  "schema_version": "3",
+  "work_id": "TKT-123.4",
+  "pr": "acme/fleet-api#88",
+  "reviewer_model": "openai:gpt-6.1-sol",
+  "writer_model": "anthropic:claude-sonnet-5.5",
+  "verdict": "pass",
+  "findings": [ { "id": "F1", "severity": "minor", "file": "src/orders/notes.py", "line": 12, "rule": "style", "text": "Name the constant MAX_NOTE_LENGTH like other limits." } ],
+  "checklist": { "in_scope": true, "smallest_diff": true, "test_proves_change": true, "no_new_deps": true, "reuse_ok": true, "security_ok": true }
+}

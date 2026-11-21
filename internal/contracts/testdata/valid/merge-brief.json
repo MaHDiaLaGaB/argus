@@ -1,0 +1,14 @@
+{
+  "schema_version": "3",
+  "pr": "acme/fleet-api#88",
+  "tier": 2,
+  "one_line": "Adds owner-only notes to orders (PATCH /orders/{id}/note)",
+  "what_changed": ["New endpoint PATCH /orders/{id}/note", "3 tests added"],
+  "evidence": ["Test proof: fails on parent, passes on change", "41/41 tests pass", "Review: 0 blocking, 1 minor"],
+  "risk": "medium",
+  "risk_notes": ["New nullable column; migration is reversible"],
+  "merge_instructions": ["Merge after fleet-api#87", "Use squash merge"],
+  "after_merge": ["Run migration 0042 on staging before deploy"],
+  "rollback": "Revert this PR; migration 0042 has a down step",
+  "human_checks": []
+}

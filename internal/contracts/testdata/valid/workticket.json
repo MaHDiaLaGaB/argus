@@ -1,0 +1,18 @@
+{
+  "schema_version": "3",
+  "work_id": "TKT-123.4",
+  "parent_ticket": "TKT-2026-000123",
+  "repo": "acme/fleet-api",
+  "track": "backend",
+  "tier": 2,
+  "tier_reasons": ["new endpoint", "touches 3 files"],
+  "outcome": "The order owner can add a note of up to 500 characters with PATCH /orders/{id}/note.",
+  "contract": "PATCH /orders/{id}/note {note: string<=500} -> 200 {id, note}; 403 if not owner; 422 if too long.",
+  "scope_files": ["src/orders/notes.py", "src/orders/routes.py", "tests/orders/test_notes.py"],
+  "line_cap": 200,
+  "proof_test": "tests/orders/test_notes.py::test_owner_can_add_note",
+  "depends_on": ["TKT-123.3"],
+  "new_dependencies_allowed": false,
+  "acceptance_criteria": ["Owner can add a note", "Non-owner gets 403", "Note over 500 chars gets 422"],
+  "split": "vertical"
+}

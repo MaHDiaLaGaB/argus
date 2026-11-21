@@ -1,0 +1,13 @@
+{
+  "schema_version": "3",
+  "pr": "acme/fleet-api#88",
+  "tier": 2,
+  "ci_checks": { "scope": "pass", "line_cap": "pass", "lint_tests": "pass", "test_proof": "pass", "gitleaks": "pass", "dep_audit": "pass", "dup_check": "pass" },
+  "ai_review": "pass",
+  "security_review": "pass",
+  "human_review_required": false,
+  "human_review": "not_required",
+  "ci_suspect": false,
+  "state": "ready_to_merge",
+  "blocked_reasons": []
+}

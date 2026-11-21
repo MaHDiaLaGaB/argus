@@ -1,0 +1,18 @@
+{
+  "schema_version": "3",
+  "run_id": "run_001",
+  "work_id": "TKT-123.4",
+  "status": "done",
+  "summary": "Added PATCH /orders/{id}/note with owner check and length limit; reused sanitize_user_text.",
+  "diff_uri": "sbx://sbx_77/patch.diff",
+  "files_changed": ["src/orders/notes.py", "src/orders/routes.py", "tests/orders/test_notes.py"],
+  "lines_changed": 64,
+  "commit_shas": ["abc1234"],
+  "proof": { "fails_on_parent": true, "passes_on_change": true },
+  "self_check": { "build_ok": true, "tests_passed": 41, "tests_failed": 0, "lint_clean": true },
+  "reuse_decisions": [ { "candidate": "acme/shared-lib:text.sanitize_user_text", "decision": "reused", "reason": "" } ],
+  "new_dependencies": [],
+  "grew_report": null,
+  "usage": { "input_tokens": 182000, "output_tokens": 21000, "usd": 0.57, "wall_seconds": 540 },
+  "learned_candidates": []
+}

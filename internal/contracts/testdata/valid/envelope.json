@@ -1,0 +1,27 @@
+{
+  "schema_version": "3",
+  "run_id": "run_001",
+  "work_id": "TKT-123.4",
+  "role": "writer",
+  "track": "backend",
+  "tier": 2,
+  "attempt": 1,
+  "model": { "ref": "anthropic:claude-sonnet-5.5", "backend": "api", "fallbacks": ["openai:gpt-6.1-sol"] },
+  "context_packet": {
+    "outcome": "The order owner can add a note of up to 500 characters.",
+    "contract": "PATCH /orders/{id}/note",
+    "acceptance_criteria": ["Owner can add a note"],
+    "scope_files": ["src/orders/notes.py", "src/orders/routes.py", "tests/orders/test_notes.py"],
+    "line_cap": 200,
+    "proof_test": "tests/orders/test_notes.py::test_owner_can_add_note",
+    "rules_refs": ["org:AGENTS.md@a1b2c3d", "repo:AGENTS.md@d4e5f6a"],
+    "file_summaries": [ { "path": "src/orders/routes.py", "summary": "Order HTTP routes" } ],
+    "reuse_candidates": [ { "repo": "acme/shared-lib", "symbol": "text.sanitize_user_text", "path": "shared/text.py", "why": "cleans user text" } ],
+    "prior_attempts": [],
+    "skills": [ { "skill_id": "api-error-format", "version": 3 } ],
+    "memory_snippets": []
+  },
+  "workspace": { "sandbox_id": "sbx_77", "base": "master", "branch": "agent/TKT-123.4-order-notes" },
+  "permissions": ["fs.rw:/work", "shell", "git.local", "tests.run", "index.search"],
+  "budget": { "max_usd": 1.5, "max_tokens": 200000, "max_minutes": 20 }
+}
