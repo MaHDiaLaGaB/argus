@@ -1,0 +1,15 @@
+# Public benchmark starting points (ARCHITECTURE 9.2, sources in Appendix A, checked 2026-11-20).
+# Used only as the routing prior, worth 10 merges (E17.02). Values are pass rates in [0,1]; omitted = no score.
+# Not read by the config loader yet; E17.02 adds parsing and validation.
+checked: 2026-11-20
+benchmarks: [terminal_bench_4_0, terminal_bench_2_1_extended, agentic_coding_2_0]
+scores:
+  "anthropic:claude-opus-5-5": {terminal_bench_4_0: 0.648, terminal_bench_2_1_extended: 0.475, agentic_coding_2_0: 0.404}
+  "anthropic:claude-sonnet-5-5": {terminal_bench_4_0: 0.618, terminal_bench_2_1_extended: 0.455}
+  "anthropic:claude-haiku-5-5": {terminal_bench_2_1_extended: 0.377}
+  "openai:gpt-6-astra": {terminal_bench_4_0: 0.582, agentic_coding_2_0: 0.476}
+  "openai:gpt-6.1-sol": {terminal_bench_2_1_extended: 0.458, agentic_coding_2_0: 0.428}
+  "openai:gpt-6-luna": {}
+  "xai:grok-4.7": {terminal_bench_4_0: 0.376, agentic_coding_2_0: 0.319}
+  "xai:grok-4.6": {terminal_bench_2_1_extended: 0.455, agentic_coding_2_0: 0.336}
+  "cursor:composer-2.5": {}

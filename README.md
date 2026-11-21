@@ -36,5 +36,6 @@ internal/contracts/    contracts, validation, tier-gate and score math, schema g
 contracts/schema/      generated JSON Schemas (one per kind; do not edit)
 internal/config/       loader and validation for config/*.yaml and policy/*.yaml
 docs/model-calls.md    every place a model is called, with reason and token budget
-policy/  config/       human-owned policy, model and price config (added in later steps)
+config/                models, prices, routing, budgets, benchmark priors
+policy/                human-only policy: tiers, allowlist (agents never edit)
 ```

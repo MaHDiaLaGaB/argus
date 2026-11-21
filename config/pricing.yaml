@@ -1,0 +1,17 @@
+# List prices in USD per million tokens (ARCHITECTURE 9.2, Appendix A). Re-check each phase.
+# cached_input_per_mtok = cache-read price; when absent the input price is used (conservative).
+# Anthropic prices verified 2026-11-21 against the Claude API pricing table. Others: TODO(verify).
+currency: USD
+prices:
+  "anthropic:claude-opus-5-5": {input_per_mtok: 4, output_per_mtok: 20, cached_input_per_mtok: 0.2}
+  "anthropic:claude-sonnet-5-5": {input_per_mtok: 2, output_per_mtok: 10, cached_input_per_mtok: 0.1}
+  # Haiku 5.5: this price is for prompts up to 100K tokens ($0.50 / $2.50 beyond); keep packets under 100K.
+  # Cache-read price TODO(verify).
+  "anthropic:claude-haiku-5-5": {input_per_mtok: 0.1, output_per_mtok: 0.5}
+  "anthropic:claude-fable-5-2": {input_per_mtok: 8, output_per_mtok: 40, cached_input_per_mtok: 0.2}
+  "openai:gpt-6-astra": {input_per_mtok: 10, output_per_mtok: 50}     # TODO(verify)
+  "openai:gpt-6.1-sol": {input_per_mtok: 2, output_per_mtok: 10}      # TODO(verify) (ARCHITECTURE 9.2 flags it)
+  "openai:gpt-6-luna": {input_per_mtok: 0.1, output_per_mtok: 0.5}    # TODO(verify)
+  "xai:grok-4.7": {input_per_mtok: 2, output_per_mtok: 6}             # TODO(verify)
+  "xai:grok-4.6": {input_per_mtok: 2, output_per_mtok: 6}             # TODO(verify)
+  "cursor:composer-2.5": {input_per_mtok: 0.5, output_per_mtok: 2.5}  # TODO(verify) Cursor pricing, may be inside the Cursor plan

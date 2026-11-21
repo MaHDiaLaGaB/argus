@@ -221,3 +221,22 @@ func TestLoadReportsAllProblems(t *testing.T) {
 		t.Fatalf("want 2 problems, got %v", err)
 	}
 }
+
+// TestRepoConfigValid loads the real config/ and policy/ at the repo root,
+// so CI fails if a human edit breaks them.
+func TestRepoConfigValid(t *testing.T) {
+	c, err := Load(filepath.Join("..", ".."))
+	if err != nil {
+		t.Fatal(err)
+	}
+	pol := c.Policy()
+	for tier := contracts.Tier(0); tier <= 4; tier++ {
+		for _, fn := range []string{"writer", "reviewer", "red_team"} {
+			for _, ref := range pol.Allowed(tier, fn) {
+				if _, ok := c.Price(ref); !ok {
+					t.Errorf("tier %d %s %s has no price", tier, fn, ref)
+				}
+			}
+		}
+	}
+}

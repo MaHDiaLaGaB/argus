@@ -1,0 +1,27 @@
+# HUMAN-ONLY. Agents never edit policy/ (AGENTS.md rule 10, ARCHITECTURE 11.4).
+# Models allowed per (tier, function), from ARCHITECTURE 8 and 9.1. The router picks only from here,
+# never below the tier floor (policy/tiers.yaml), and always cross-family for review.
+
+# Tier 0 (project CI) is written only by the best model, with no cheaper alternates.
+tier0_writer: "anthropic:claude-opus-5-5"
+
+tiers:
+  0:
+    writer: ["anthropic:claude-opus-5-5"]
+    reviewer: ["openai:gpt-6-astra"]
+    red_team: ["xai:grok-4.7"]
+  1:
+    writer: ["anthropic:claude-haiku-5-5", "cursor:composer-2.5", "openai:gpt-6-luna"]
+    reviewer: ["openai:gpt-6-luna", "xai:grok-4.6", "anthropic:claude-haiku-5-5"]
+  2:
+    writer: ["anthropic:claude-sonnet-5-5", "openai:gpt-6.1-sol", "xai:grok-4.6"]
+    reviewer: ["openai:gpt-6.1-sol", "anthropic:claude-sonnet-5-5"]
+  3:
+    writer: ["anthropic:claude-opus-5-5", "openai:gpt-6-astra"]
+    reviewer: ["openai:gpt-6-astra", "anthropic:claude-opus-5-5"]
+    red_team: ["xai:grok-4.7"]
+  4:
+    writer: ["anthropic:claude-opus-5-5", "openai:gpt-6-astra"]
+    reviewer: ["openai:gpt-6-astra", "anthropic:claude-opus-5-5"]
+    red_team: ["xai:grok-4.7"]
+  # Adjudicator (Grok, ARCHITECTURE 9.1) is added when scoring is built (E17.01).

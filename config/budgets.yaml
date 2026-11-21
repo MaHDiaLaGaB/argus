@@ -1,0 +1,4 @@
+# Spending caps in USD (ARCHITECTURE 23). Enforced by the budget hard stop (E02.06).
+org_monthly_usd: 600
+alert_at: 0.8
+per_ticket_usd: {0: 8, 1: 0.5, 2: 4, 3: 12, 4: 25}

@@ -1,0 +1,22 @@
+# Models argus may call. ref = provider:<vendor API model ID>. Model IDs live here, never in code.
+# class is the vendor's own tier for the model (small < mid < top); policy/tiers.yaml sets a floor per tier.
+# Anthropic IDs verified 2026-11-21 against the Claude API model list. Others: TODO(verify) against vendor docs.
+models:
+  # Claude (Anthropic)
+  - {ref: "anthropic:claude-opus-5-5", name: Claude Opus 5.5, class: top, backends: [api]}
+  - {ref: "anthropic:claude-sonnet-5-5", name: Claude Sonnet 5.5, class: mid, backends: [api]}
+  - {ref: "anthropic:claude-haiku-5-5", name: Claude Haiku 5.5, class: small, backends: [api]}
+  # Optional (ARCHITECTURE 9.1): stronger, much more expensive. Priced but not in the allowlist.
+  - {ref: "anthropic:claude-fable-5-2", name: Claude Fable 5.2, class: top, backends: [api]}
+
+  # GPT (OpenAI). TODO(verify) every ID.
+  - {ref: "openai:gpt-6-astra", name: GPT-6 Astra, class: top, backends: [api]}
+  - {ref: "openai:gpt-6.1-sol", name: GPT-6.1 Sol, class: mid, backends: [api]}
+  - {ref: "openai:gpt-6-luna", name: GPT-6 Luna, class: small, backends: [api]}
+
+  # Grok (xAI). TODO(verify) every ID. Grok 4.7 is xAI's flagship, so class top.
+  - {ref: "xai:grok-4.7", name: Grok 4.7, class: top, backends: [api]}
+  - {ref: "xai:grok-4.6", name: Grok 4.6, class: mid, backends: [api]}
+
+  # Composer (Cursor): Cursor backend only, no public API. TODO(verify) ID.
+  - {ref: "cursor:composer-2.5", name: Composer 2.5, class: small, backends: [cursor]}

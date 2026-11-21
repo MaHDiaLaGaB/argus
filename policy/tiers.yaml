@@ -1,0 +1,14 @@
+# HUMAN-ONLY. Agents never edit policy/ (AGENTS.md rule 10, ARCHITECTURE 11.4).
+# Tier rules from ARCHITECTURE 8 and 6.5.
+# line_cap must equal the caps in internal/contracts (changing one needs a schema version bump).
+# floor = weakest model class allowed at the tier (small < mid < top, see config/models.yaml).
+
+# Tiers that need a human review and approval before merge. Must include 0 and 4; add 3 here if wanted.
+human_review_tiers: [0, 4]
+
+tiers:
+  0: {line_cap: 200, floor: top,   max_attempts_per_model: 2, max_escalations: 1}  # project CI
+  1: {line_cap: 30,  floor: small, max_attempts_per_model: 2, max_escalations: 1}  # routine
+  2: {line_cap: 200, floor: mid,   max_attempts_per_model: 2, max_escalations: 1}  # feature
+  3: {line_cap: 400, floor: top,   max_attempts_per_model: 2, max_escalations: 1}  # design
+  4: {line_cap: 400, floor: top,   max_attempts_per_model: 2, max_escalations: 1}  # critical
