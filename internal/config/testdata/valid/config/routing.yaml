@@ -1,0 +1,7 @@
+# Test fixture. Static Phase 0 routing per tier.
+tiers:
+  0: {writer: "anthropic:claude-opus-5.5", reviewer: "openai:gpt-6-astra", red_team: "xai:grok-4.7", lambda: 0, exploration: 0}
+  1: {writer: "anthropic:claude-haiku-5.5", reviewer: "openai:gpt-6-luna", lambda: 1.0, exploration: 0.1}
+  2: {writer: "anthropic:claude-sonnet-5.5", reviewer: "openai:gpt-6.1-sol", lambda: 0.5, exploration: 0.1}
+  3: {writer: "anthropic:claude-opus-5.5", reviewer: "openai:gpt-6-astra", red_team: "xai:grok-4.7", lambda: 0.1, exploration: 0}
+  4: {writer: "anthropic:claude-opus-5.5", reviewer: "openai:gpt-6-astra", red_team: "xai:grok-4.7", lambda: 0, exploration: 0}

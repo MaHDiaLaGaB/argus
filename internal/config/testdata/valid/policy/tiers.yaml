@@ -1,0 +1,8 @@
+# Test fixture. Real policy is human-only (AGENTS.md rule 10).
+human_review_tiers: [0, 4]
+tiers:
+  0: {line_cap: 200, floor: top, max_attempts_per_model: 2, max_escalations: 1}
+  1: {line_cap: 30, floor: small, max_attempts_per_model: 2, max_escalations: 1}
+  2: {line_cap: 200, floor: mid, max_attempts_per_model: 2, max_escalations: 1}
+  3: {line_cap: 400, floor: top, max_attempts_per_model: 2, max_escalations: 1}
+  4: {line_cap: 400, floor: top, max_attempts_per_model: 2, max_escalations: 1}

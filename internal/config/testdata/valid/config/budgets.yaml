@@ -1,0 +1,4 @@
+# Test fixture. ARCHITECTURE.md Section 23 guardrails.
+org_monthly_usd: 600
+alert_at: 0.8
+per_ticket_usd: {0: 8, 1: 0.5, 2: 4, 3: 12, 4: 25}

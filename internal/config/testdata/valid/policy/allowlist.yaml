@@ -1,0 +1,21 @@
+# Test fixture. Models allowed per (tier, function).
+tier0_writer: "anthropic:claude-opus-5.5"
+tiers:
+  0:
+    writer: ["anthropic:claude-opus-5.5"]
+    reviewer: ["openai:gpt-6-astra"]
+    red_team: ["xai:grok-4.7"]
+  1:
+    writer: ["anthropic:claude-haiku-5.5", "cursor:composer-2.5", "openai:gpt-6-luna"]
+    reviewer: ["openai:gpt-6-luna", "xai:grok-4.6", "anthropic:claude-haiku-5.5"]
+  2:
+    writer: ["anthropic:claude-sonnet-5.5", "openai:gpt-6.1-sol", "xai:grok-4.6"]
+    reviewer: ["openai:gpt-6.1-sol", "anthropic:claude-sonnet-5.5"]
+  3:
+    writer: ["anthropic:claude-opus-5.5", "openai:gpt-6-astra"]
+    reviewer: ["openai:gpt-6-astra", "anthropic:claude-opus-5.5"]
+    red_team: ["xai:grok-4.7"]
+  4:
+    writer: ["anthropic:claude-opus-5.5", "openai:gpt-6-astra"]
+    reviewer: ["openai:gpt-6-astra", "anthropic:claude-opus-5.5"]
+    red_team: ["xai:grok-4.7"]

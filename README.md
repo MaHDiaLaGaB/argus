@@ -26,6 +26,7 @@ argus validate --kind <ticket|workticket|envelope|writer-result|review|gate|merg
 argus gate gate.json                      # evaluates the tier-gate decision
 argus schema --kind ticket                # print one generated JSON Schema
 argus schema --out contracts/schema       # write every schema
+argus config check [--root .]             # load and validate config/ and policy/
 ```
 
 ## Layout
@@ -33,6 +34,7 @@ argus schema --out contracts/schema       # write every schema
 cmd/argus/           CLI
 internal/contracts/    contracts, validation, tier-gate and score math, schema generator
 contracts/schema/      generated JSON Schemas (one per kind; do not edit)
+internal/config/       loader and validation for config/*.yaml and policy/*.yaml
 docs/model-calls.md    every place a model is called, with reason and token budget
 policy/  config/       human-owned policy, model and price config (added in later steps)
 ```

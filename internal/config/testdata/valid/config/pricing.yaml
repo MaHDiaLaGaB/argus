@@ -1,0 +1,12 @@
+# Test fixture. USD per million tokens.
+currency: USD
+prices:
+  "anthropic:claude-opus-5.5": {input_per_mtok: 4, output_per_mtok: 20, cached_input_per_mtok: 0.4}
+  "anthropic:claude-sonnet-5.5": {input_per_mtok: 2, output_per_mtok: 10}
+  "anthropic:claude-haiku-5.5": {input_per_mtok: 0.1, output_per_mtok: 0.5}
+  "openai:gpt-6-astra": {input_per_mtok: 10, output_per_mtok: 50}
+  "openai:gpt-6.1-sol": {input_per_mtok: 2, output_per_mtok: 10}
+  "openai:gpt-6-luna": {input_per_mtok: 0.1, output_per_mtok: 0.5}
+  "xai:grok-4.7": {input_per_mtok: 2, output_per_mtok: 6}
+  "xai:grok-4.6": {input_per_mtok: 2, output_per_mtok: 6}
+  "cursor:composer-2.5": {input_per_mtok: 0.5, output_per_mtok: 2.5}

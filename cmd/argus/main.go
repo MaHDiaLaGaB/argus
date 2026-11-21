@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/argus-dev/argus/internal/config"
 	"github.com/argus-dev/argus/internal/contracts"
 )
 
@@ -35,6 +36,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return cmdGate(args[1:], stdout, stderr)
 	case "schema":
 		return cmdSchema(args[1:], stdout, stderr)
+	case "config":
+		return cmdConfig(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
 		usage(stdout)
 		return 0
@@ -56,6 +59,7 @@ func usage(w io.Writer) {
   argus validate --kind <%s> <file.json>
   argus gate <gate.json>
   argus schema [--kind <kind>] [--out <dir>]
+  argus config check [--root <dir>]
 `, strings.Join(contracts.Kinds(), "|"))
 }
 
@@ -154,5 +158,31 @@ func cmdSchema(args []string, stdout, stderr io.Writer) int {
 		}
 	}
 	printf(stdout, "wrote %d schemas to %s\n", len(contracts.Kinds()), *out)
+	return 0
+}
+
+// cmdConfig loads config/ and policy/ under --root and reports every problem.
+// Services run the same check at startup and refuse to start on failure.
+func cmdConfig(args []string, stdout, stderr io.Writer) int {
+	if len(args) == 0 || args[0] != "check" {
+		usage(stderr)
+		return 2
+	}
+	fs := flag.NewFlagSet("config check", flag.ContinueOnError)
+	fs.SetOutput(stderr)
+	root := fs.String("root", ".", "directory that holds config/ and policy/")
+	if err := fs.Parse(args[1:]); err != nil {
+		return 2
+	}
+	if fs.NArg() != 0 {
+		usage(stderr)
+		return 2
+	}
+	c, err := config.Load(*root)
+	if err != nil {
+		println(stderr, err)
+		return 1
+	}
+	printf(stdout, "ok: config and policy in %s are valid (%d models)\n", *root, len(c.Models()))
 	return 0
 }

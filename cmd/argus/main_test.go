@@ -82,3 +82,25 @@ func TestRunSchema(t *testing.T) {
 		}
 	}
 }
+
+func TestRunConfigCheck(t *testing.T) {
+	var out, errb bytes.Buffer
+	if code := run([]string{"config", "check", "--root", "../../internal/config/testdata/valid"}, &out, &errb); code != 0 {
+		t.Fatalf("exit %d: %s", code, errb.String())
+	}
+	if !strings.Contains(out.String(), "9 models") {
+		t.Fatalf("unexpected output %q", out.String())
+	}
+	errb.Reset()
+	if code := run([]string{"config", "check", "--root", t.TempDir()}, &out, &errb); code != 1 {
+		t.Fatalf("expected exit 1 for missing config, got %d", code)
+	}
+	if !strings.Contains(errb.String(), "config/models.yaml") {
+		t.Fatalf("expected the missing file to be named, got %q", errb.String())
+	}
+	for _, bad := range [][]string{{"config"}, {"config", "fix"}, {"config", "check", "extra"}} {
+		if code := run(bad, &out, &errb); code != 2 {
+			t.Errorf("%v: expected exit 2, got %d", bad, code)
+		}
+	}
+}
