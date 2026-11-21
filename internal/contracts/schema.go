@@ -45,10 +45,10 @@ func Schema(kind string) ([]byte, error) {
 
 // typeSchema maps a Go type to a JSON Schema object.
 func typeSchema(t reflect.Type) map[string]any {
-	switch {
-	case t == tierType:
+	switch t {
+	case tierType:
 		return map[string]any{"type": "integer", "minimum": 0, "maximum": 4}
-	case t == timeType:
+	case timeType:
 		return map[string]any{"type": "string", "format": "date-time"}
 	}
 	switch t.Kind() {

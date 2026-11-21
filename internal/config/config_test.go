@@ -17,21 +17,7 @@ const validRoot = "testdata/valid"
 func copyValid(t *testing.T) string {
 	t.Helper()
 	dst := t.TempDir()
-	err := filepath.WalkDir(validRoot, func(p string, d os.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		rel, _ := filepath.Rel(validRoot, p)
-		if d.IsDir() {
-			return os.MkdirAll(filepath.Join(dst, rel), 0o755)
-		}
-		b, err := os.ReadFile(p)
-		if err != nil {
-			return err
-		}
-		return os.WriteFile(filepath.Join(dst, rel), b, 0o600)
-	})
-	if err != nil {
+	if err := os.CopyFS(dst, os.DirFS(validRoot)); err != nil {
 		t.Fatal(err)
 	}
 	return dst

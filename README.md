@@ -14,7 +14,7 @@ Phase 0, step 1–2: repo skeleton and contracts.
 make setup     # download modules
 make build     # bin/argus
 make test      # all tests with the race detector
-make lint      # gofmt check, go vet, golangci-lint if installed
+make lint      # gofmt check, go vet, golangci-lint (v2, with gosec) if installed
 make schema    # regenerate contracts/schema/*.json (make test fails if stale)
 make run ARGS="validate --kind workticket internal/contracts/testdata/valid/workticket.json"
 ```

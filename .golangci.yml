@@ -1,0 +1,19 @@
+# golangci-lint v2 config. Version pinned in .github/workflows/ci.yml.
+version: "2"
+linters:
+  default: standard # errcheck, govet, ineffassign, staticcheck, unused
+  enable:
+    - gosec # security checks (E01.06)
+    - bodyclose
+    - errorlint
+    - misspell
+    - unconvert
+  exclusions:
+    rules:
+      # Tests read and write their own fixtures and temp dirs by path; that is not traversal.
+      - path: _test\.go
+        linters: [gosec]
+        text: "G304|G703"
+formatters:
+  enable:
+    - gofmt

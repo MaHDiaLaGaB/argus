@@ -174,9 +174,25 @@ func Load(root string) (*Config, error) {
 	return c, nil
 }
 
+// readUnder reads root/name through os.Root, so a symlink or ".." can never
+// make the loader read a file outside the config root.
+func readUnder(root, name string) ([]byte, error) {
+	r, err := os.OpenRoot(root)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = r.Close() }()
+	f, err := r.Open(filepath.FromSlash(name))
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = f.Close() }()
+	return io.ReadAll(f)
+}
+
 // decodeFile strictly decodes one YAML document from root/name into v.
 func decodeFile(e *Error, root, name string, v any) bool {
-	data, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(name)))
+	data, err := readUnder(root, name)
 	if err != nil {
 		e.add(name, "%v", err)
 		return false

@@ -3,7 +3,7 @@
 Generated from one definition; `scripts/create-github-issues.sh` creates the same items in GitHub.
 Tier = the pipeline tier the work itself would get. Size: S (< 1 day), M (1-3 days), L (3-5 days).
 
-**23 epics, 107 issues, 5 done.**
+**23 epics, 107 issues, 6 done.**
 
 | Epic | Phase | Issues |
 |---|---|---|
@@ -46,7 +46,7 @@ Repo skeleton, contracts every component speaks, config and policy loading.
 | E01.03 | **Generate JSON Schemas from contracts**: Reflection-based generator writes contracts/schema/*.json; CI fails if generated files are stale. | 2 | S | done | One schema per contract kind; CI check for drift |
 | E01.04 | **Config and policy loader**: Load config/*.yaml and policy/*.yaml (models, pricing, routing, allowlist, tiers, caps, human_review_tiers); validate at startup; refuse to start if invalid. | 2 | M | done | Invalid config stops startup with a clear error; Policy is read-only at runtime |
 | E01.05 | **Model, price and allowlist config v1**: config/models.yaml, pricing.yaml, benchmarks.yaml and policy/allowlist.yaml filled from ARCHITECTURE Section 9 with TODO(verify) markers. | 1 | S | done | Every model in allowlist has a price; Tier floors encoded |
-| E01.06 | **Secret scanning and supply chain for this repo**: gitleaks in CI, gosec, Dependabot for Go modules and Actions, pinned action SHAs. | 0 | S | todo | CI fails on a planted fake secret |
+| E01.06 | **Secret scanning and supply chain for this repo**: gitleaks in CI, gosec, Dependabot for Go modules and Actions, pinned action SHAs. | 0 | S | done | CI fails on a planted fake secret |
 
 ### E02: Model clients (plain HTTPS)
 

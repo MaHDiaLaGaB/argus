@@ -48,6 +48,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 }
 
+// readUserFile reads a file the user named on the command line. Reading any
+// path the caller chooses is the purpose of the CLI, so the traversal rule does not apply.
+func readUserFile(path string) ([]byte, error) {
+	return os.ReadFile(path) // #nosec G304 G703 -- path is the CLI user's own argument
+}
+
 // printf and println write CLI output; a failed write to stdout/stderr is not actionable.
 func printf(w io.Writer, format string, args ...any) { _, _ = fmt.Fprintf(w, format, args...) }
 
@@ -79,7 +85,7 @@ func cmdValidate(args []string, stdout, stderr io.Writer) int {
 		printf(stderr, "unknown kind %q (allowed: %s)\n", *kind, strings.Join(contracts.Kinds(), ", "))
 		return 2
 	}
-	data, err := os.ReadFile(fs.Arg(0))
+	data, err := readUserFile(fs.Arg(0))
 	if err != nil {
 		println(stderr, err)
 		return 1
@@ -98,7 +104,7 @@ func cmdGate(args []string, stdout, stderr io.Writer) int {
 		usage(stderr)
 		return 2
 	}
-	data, err := os.ReadFile(args[0])
+	data, err := readUserFile(args[0])
 	if err != nil {
 		println(stderr, err)
 		return 1
@@ -142,7 +148,7 @@ func cmdSchema(args []string, stdout, stderr io.Writer) int {
 		_, _ = stdout.Write(b)
 		return 0
 	}
-	if err := os.MkdirAll(*out, 0o755); err != nil {
+	if err := os.MkdirAll(*out, 0o750); err != nil {
 		println(stderr, err)
 		return 1
 	}
@@ -152,7 +158,7 @@ func cmdSchema(args []string, stdout, stderr io.Writer) int {
 			println(stderr, err)
 			return 1
 		}
-		if err := os.WriteFile(filepath.Join(*out, k+".json"), b, 0o644); err != nil {
+		if err := os.WriteFile(filepath.Join(*out, k+".json"), b, 0o600); err != nil {
 			println(stderr, err)
 			return 1
 		}

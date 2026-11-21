@@ -154,7 +154,9 @@ func conform(s map[string]any, v any, at string) []string {
 			types = append(types, x.(string))
 		}
 	}
-	if got := jsonType(v); !slices.Contains(types, got) && !(got == "integer" && slices.Contains(types, "number")) {
+	got := jsonType(v)
+	numberOK := got == "integer" && slices.Contains(types, "number") // an integer is also a number
+	if !slices.Contains(types, got) && !numberOK {
 		add("type %s, want %v", got, types)
 		return problems
 	}
