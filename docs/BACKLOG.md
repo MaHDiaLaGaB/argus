@@ -3,7 +3,7 @@
 Generated from one definition; `scripts/create-github-issues.sh` creates the same items in GitHub.
 Tier = the pipeline tier the work itself would get. Size: S (< 1 day), M (1-3 days), L (3-5 days).
 
-**23 epics, 107 issues, 6 done.**
+**23 epics, 107 issues, 7 done.**
 
 | Epic | Phase | Issues |
 |---|---|---|
@@ -54,7 +54,7 @@ Thin clients for Claude, GPT and Grok with budgets, pricing and logging. No AI f
 
 | # | Issue | Tier | Size | Status | Acceptance |
 |---|---|---|---|---|---|
-| E02.01 | **LLM client interface**: internal/llm: Complete(ctx, Request) Response with messages, tools (JSON schema), max tokens, cache hints, run/step ids. Normalized usage. | 2 | S | todo | Interface documented; Fake client for tests |
+| E02.01 | **LLM client interface**: internal/llm: Complete(ctx, Request) Response with messages, tools (JSON schema), max tokens, cache hints, run/step ids. Normalized usage. | 2 | S | done | Interface documented; Fake client for tests |
 | E02.02 | **Anthropic client**: Messages API over net/http: tool use, prompt caching, usage parsing, retries with backoff on 429/5xx. | 2 | M | todo | Recorded-response tests cost $0; Tool calls round-trip |
 | E02.03 | **OpenAI client**: Responses/Chat API over net/http with tool calling and usage parsing. | 2 | M | todo | Recorded-response tests; Tool calls round-trip |
 | E02.04 | **xAI client**: Grok API (OpenAI-compatible endpoint, TODO(verify)) reusing the OpenAI wire code. | 2 | S | todo | Recorded-response tests |
