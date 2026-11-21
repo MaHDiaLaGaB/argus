@@ -1,0 +1,13 @@
+{
+  "id": "msg_01TEXT",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-5-5",
+  "content": [
+    {"type": "thinking", "thinking": "", "signature": "sig-text-1"},
+    {"type": "text", "text": "Adds a notes endpoint."}
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 21, "cache_creation_input_tokens": 400, "cache_read_input_tokens": 0, "output_tokens": 9}
+}

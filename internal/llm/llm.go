@@ -86,11 +86,22 @@ type Message struct {
 	Parts []Part
 }
 
-// Part is exactly one of: text, a tool call (assistant only) or a tool result (user only).
+// Part is exactly one of: text, a tool call (assistant only), a tool result
+// (user only) or an opaque provider block (assistant only).
 type Part struct {
 	Text       string
 	ToolCall   *ToolCall
 	ToolResult *ToolResult
+	Opaque     *Opaque
+}
+
+// Opaque is a provider block argus does not interpret, such as a thinking
+// block. Clients return it in Response.Parts and must send it back unchanged
+// when the reply is appended to the conversation; a client for another
+// provider drops blocks that are not its own.
+type Opaque struct {
+	Provider string          // provider that produced the block, for example "anthropic"
+	Raw      json.RawMessage // the block exactly as received
 }
 
 // ToolCall is the model asking to run a tool.
@@ -285,11 +296,21 @@ func (r *Request) Validate() error {
 			if part.ToolResult != nil {
 				kinds++
 			}
+			if part.Opaque != nil {
+				kinds++
+			}
 			if kinds != 1 {
-				add("%s must have exactly one of text, tool_call, tool_result", pat)
+				add("%s must have exactly one of text, tool_call, tool_result, opaque", pat)
 				continue
 			}
 			switch {
+			case part.Opaque != nil:
+				if m.Role != RoleAssistant {
+					add("%s: opaque blocks only come from the assistant", pat)
+				}
+				if part.Opaque.Provider == "" || !json.Valid(part.Opaque.Raw) {
+					add("%s: opaque block needs a provider and valid JSON", pat)
+				}
 			case part.ToolCall != nil:
 				c := part.ToolCall
 				if m.Role != RoleAssistant {

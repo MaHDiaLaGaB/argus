@@ -1,0 +1,21 @@
+{
+  "model": "claude-sonnet-5-5",
+  "max_tokens": 4096,
+  "system": [{"type": "text", "text": "You are the backend Writer.", "cache_control": {"type": "ephemeral"}}],
+  "tools": [{
+    "name": "read_file",
+    "description": "Read one file in scope.",
+    "input_schema": {"type": "object", "properties": {"path": {"type": "string"}}, "required": ["path"], "additionalProperties": false}
+  }],
+  "messages": [
+    {"role": "user", "content": [{"type": "text", "text": "Add a notes endpoint."}]},
+    {"role": "assistant", "content": [
+      {"type": "thinking", "thinking": "", "signature": "sig-tool-1"},
+      {"type": "text", "text": "I will read the routes first."},
+      {"type": "tool_use", "id": "toolu_01A", "name": "read_file", "input": {"path": "src/routes.go"}}
+    ]},
+    {"role": "user", "content": [
+      {"type": "tool_result", "tool_use_id": "toolu_01A", "content": "package routes", "cache_control": {"type": "ephemeral"}}
+    ]}
+  ]
+}
