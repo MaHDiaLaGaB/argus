@@ -1,0 +1,14 @@
+{
+  "id": "msg_01TOOL1",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-sonnet-5-5",
+  "content": [
+    {"type": "thinking", "thinking": "", "signature": "sig-tool-1"},
+    {"type": "text", "text": "I will read the routes first."},
+    {"type": "tool_use", "id": "toolu_01A", "name": "read_file", "input": {"path": "src/routes.go"}}
+  ],
+  "stop_reason": "tool_use",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 310, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 48}
+}

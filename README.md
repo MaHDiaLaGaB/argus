@@ -36,6 +36,7 @@ internal/contracts/    contracts, validation, tier-gate and score math, schema g
 contracts/schema/      generated JSON Schemas (one per kind; do not edit)
 internal/config/       loader and validation for config/*.yaml and policy/*.yaml
 internal/llm/          model client interface, request checks, typed errors, fake client for tests
+internal/llm/anthropic Claude Messages API client over net/http (retries, caching, usage)
 docs/model-calls.md    every place a model is called, with reason and token budget
 config/                models, prices, routing, budgets, benchmark priors
 policy/                human-only policy: tiers, allowlist (agents never edit)

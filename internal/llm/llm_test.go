@@ -59,8 +59,8 @@ func TestRequestValidate(t *testing.T) {
 		{"empty message", func(r *Request) { r.Messages[0].Parts = nil }, "messages[0] has no parts"},
 		{"part with two kinds", func(r *Request) {
 			r.Messages[1].Parts[0].ToolCall = &ToolCall{ID: "x", Name: "read_file", Input: json.RawMessage(`{}`)}
-		}, "exactly one of text, tool_call, tool_result"},
-		{"empty part", func(r *Request) { r.Messages[0].Parts = []Part{{}} }, "exactly one of text, tool_call, tool_result"},
+		}, "exactly one of text, tool_call, tool_result, opaque"},
+		{"empty part", func(r *Request) { r.Messages[0].Parts = []Part{{}} }, "exactly one of text, tool_call, tool_result, opaque"},
 		{"tool call from user", func(r *Request) {
 			r.Messages[0].Parts = append(r.Messages[0].Parts, Part{ToolCall: &ToolCall{ID: "u", Name: "read_file", Input: json.RawMessage(`{}`)}})
 		}, "tool calls only come from the assistant"},
@@ -80,6 +80,15 @@ func TestRequestValidate(t *testing.T) {
 		{"no tool description", func(r *Request) { r.Tools[0].Description = "" }, "description is required"},
 		{"schema not json", func(r *Request) { r.Tools[0].InputSchema = json.RawMessage(`{`) }, "input_schema"},
 		{"schema not object type", func(r *Request) { r.Tools[0].InputSchema = json.RawMessage(`{"type":"string"}`) }, `"type": "object"`},
+		{"opaque thinking from assistant", func(r *Request) {
+			r.Messages[1].Parts = append([]Part{{Opaque: &Opaque{Provider: "anthropic", Raw: json.RawMessage(`{"type":"thinking","thinking":"","signature":"sig"}`)}}}, r.Messages[1].Parts...)
+		}, ""},
+		{"opaque from user", func(r *Request) {
+			r.Messages[0].Parts = append(r.Messages[0].Parts, Part{Opaque: &Opaque{Provider: "anthropic", Raw: json.RawMessage(`{}`)}})
+		}, "opaque blocks only come from the assistant"},
+		{"opaque bad json", func(r *Request) {
+			r.Messages[1].Parts = append(r.Messages[1].Parts, Part{Opaque: &Opaque{Provider: "anthropic", Raw: json.RawMessage(`{`)}})
+		}, "needs a provider and valid JSON"},
 		{"cache history without prefix", func(r *Request) { r.Cache = CacheHint{History: true} }, "cache.history needs cache.prefix"},
 	}
 	for _, tc := range cases {
