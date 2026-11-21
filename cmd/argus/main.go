@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/argus-dev/argus/internal/contracts"
@@ -32,6 +33,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return cmdValidate(args[1:], stdout, stderr)
 	case "gate":
 		return cmdGate(args[1:], stdout, stderr)
+	case "schema":
+		return cmdSchema(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
 		usage(stdout)
 		return 0
@@ -52,6 +55,7 @@ func usage(w io.Writer) {
   argus version
   argus validate --kind <%s> <file.json>
   argus gate <gate.json>
+  argus schema [--kind <kind>] [--out <dir>]
 `, strings.Join(contracts.Kinds(), "|"))
 }
 
@@ -109,5 +113,46 @@ func cmdGate(args []string, stdout, stderr io.Writer) int {
 	if g.State != "ready_to_merge" {
 		return 1
 	}
+	return 0
+}
+
+// cmdSchema prints one generated JSON Schema, or writes every schema to --out.
+func cmdSchema(args []string, stdout, stderr io.Writer) int {
+	fs := flag.NewFlagSet("schema", flag.ContinueOnError)
+	fs.SetOutput(stderr)
+	kind := fs.String("kind", "", "contract kind to print")
+	out := fs.String("out", "", "directory to write <kind>.json for every kind")
+	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	if fs.NArg() != 0 || (*kind == "") == (*out == "") {
+		usage(stderr)
+		return 2
+	}
+	if *kind != "" {
+		b, err := contracts.Schema(*kind)
+		if err != nil {
+			println(stderr, err)
+			return 2
+		}
+		_, _ = stdout.Write(b)
+		return 0
+	}
+	if err := os.MkdirAll(*out, 0o755); err != nil {
+		println(stderr, err)
+		return 1
+	}
+	for _, k := range contracts.Kinds() {
+		b, err := contracts.Schema(k)
+		if err != nil {
+			println(stderr, err)
+			return 1
+		}
+		if err := os.WriteFile(filepath.Join(*out, k+".json"), b, 0o644); err != nil {
+			println(stderr, err)
+			return 1
+		}
+	}
+	printf(stdout, "wrote %d schemas to %s\n", len(contracts.Kinds()), *out)
 	return 0
 }

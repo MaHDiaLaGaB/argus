@@ -1,0 +1,157 @@
+{
+  "$id": "score.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus ScoreRecord contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "adjudicator": {
+      "type": "string"
+    },
+    "attempts": {
+      "type": "integer"
+    },
+    "backend": {
+      "type": "string"
+    },
+    "dims": {
+      "additionalProperties": false,
+      "properties": {
+        "cost_speed": {
+          "type": "number"
+        },
+        "first_pass": {
+          "type": "number"
+        },
+        "review_survival": {
+          "type": "number"
+        },
+        "scope": {
+          "type": "number"
+        },
+        "test_proof": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "first_pass",
+        "scope",
+        "test_proof",
+        "cost_speed",
+        "review_survival"
+      ],
+      "type": "object"
+    },
+    "duration_s": {
+      "type": "integer"
+    },
+    "files_changed": {
+      "type": "integer"
+    },
+    "findings": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "type": "integer"
+        },
+        "rejected": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "accepted",
+        "rejected"
+      ],
+      "type": "object"
+    },
+    "input_tokens": {
+      "type": "integer"
+    },
+    "lines_changed": {
+      "type": "integer"
+    },
+    "org": {
+      "type": "string"
+    },
+    "output_tokens": {
+      "type": "integer"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "reverted_within_14d": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "reviewer": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "scope_pass": {
+      "type": "boolean"
+    },
+    "test_proof_pass": {
+      "type": "boolean"
+    },
+    "ticket": {
+      "type": "string"
+    },
+    "tier": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "total": {
+      "type": "number"
+    },
+    "track": {
+      "type": "string"
+    },
+    "ts": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "usd": {
+      "type": "number"
+    },
+    "work_type": {
+      "type": "string"
+    },
+    "writer": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "ts",
+    "org",
+    "ticket",
+    "repo",
+    "track",
+    "tier",
+    "work_type",
+    "writer",
+    "backend",
+    "reviewer",
+    "adjudicator",
+    "attempts",
+    "files_changed",
+    "lines_changed",
+    "scope_pass",
+    "test_proof_pass",
+    "findings",
+    "input_tokens",
+    "output_tokens",
+    "usd",
+    "duration_s",
+    "dims",
+    "total",
+    "reverted_within_14d"
+  ],
+  "title": "ScoreRecord",
+  "type": "object"
+}

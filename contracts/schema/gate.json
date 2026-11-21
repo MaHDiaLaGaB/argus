@@ -1,0 +1,71 @@
+{
+  "$id": "gate.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus GateResult contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "ai_review": {
+      "type": "string"
+    },
+    "blocked_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "ci_checks": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "ci_suspect": {
+      "type": "boolean"
+    },
+    "human_review": {
+      "type": "string"
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "pr": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "security_review": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "tier": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "pr",
+    "tier",
+    "ci_checks",
+    "ai_review",
+    "security_review",
+    "human_review_required",
+    "human_review",
+    "ci_suspect",
+    "state",
+    "blocked_reasons"
+  ],
+  "title": "GateResult",
+  "type": "object"
+}

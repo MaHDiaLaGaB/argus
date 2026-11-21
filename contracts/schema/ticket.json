@@ -1,0 +1,101 @@
+{
+  "$id": "ticket.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus Ticket contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "attachments": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "mime": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uri",
+          "mime"
+        ],
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "body": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string"
+    },
+    "org_id": {
+      "type": "string"
+    },
+    "repo_hint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requester": {
+      "additionalProperties": false,
+      "properties": {
+        "display": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "display"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "ticket_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "ticket_id",
+    "source",
+    "source_ref",
+    "kind",
+    "mode",
+    "title",
+    "body",
+    "repo_hint",
+    "requester",
+    "attachments",
+    "created_at"
+  ],
+  "title": "Ticket",
+  "type": "object"
+}

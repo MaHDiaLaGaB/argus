@@ -1,0 +1,103 @@
+{
+  "$id": "workticket.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus WorkTicket contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "acceptance_criteria": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "contract": {
+      "type": "string"
+    },
+    "depends_on": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "line_cap": {
+      "type": "integer"
+    },
+    "new_dependencies_allowed": {
+      "type": "boolean"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "parent_ticket": {
+      "type": "string"
+    },
+    "proof_test": {
+      "type": "string"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "scope_files": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "split": {
+      "type": "string"
+    },
+    "tier": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "tier_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "track": {
+      "type": "string"
+    },
+    "work_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "work_id",
+    "parent_ticket",
+    "repo",
+    "track",
+    "tier",
+    "tier_reasons",
+    "outcome",
+    "contract",
+    "scope_files",
+    "line_cap",
+    "proof_test",
+    "depends_on",
+    "new_dependencies_allowed",
+    "acceptance_criteria",
+    "split"
+  ],
+  "title": "WorkTicket",
+  "type": "object"
+}

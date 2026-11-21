@@ -15,6 +15,7 @@ make setup     # download modules
 make build     # bin/argus
 make test      # all tests with the race detector
 make lint      # gofmt check, go vet, golangci-lint if installed
+make schema    # regenerate contracts/schema/*.json (make test fails if stale)
 make run ARGS="validate --kind workticket internal/contracts/testdata/valid/workticket.json"
 ```
 
@@ -22,13 +23,16 @@ make run ARGS="validate --kind workticket internal/contracts/testdata/valid/work
 ```
 argus version
 argus validate --kind <ticket|workticket|envelope|writer-result|review|gate|merge-brief|score> <file.json>
-argus gate --tier N --file gate.json      # evaluates the tier-gate decision
+argus gate gate.json                      # evaluates the tier-gate decision
+argus schema --kind ticket                # print one generated JSON Schema
+argus schema --out contracts/schema       # write every schema
 ```
 
 ## Layout
 ```
 cmd/argus/           CLI
-internal/contracts/    contracts, validation, tier-gate and score math
+internal/contracts/    contracts, validation, tier-gate and score math, schema generator
+contracts/schema/      generated JSON Schemas (one per kind; do not edit)
 docs/model-calls.md    every place a model is called, with reason and token budget
 policy/  config/       human-owned policy, model and price config (added in later steps)
 ```

@@ -2,7 +2,7 @@
 BIN := bin/argus
 PKG := ./...
 
-.PHONY: setup build test test-one lint fmt run clean
+.PHONY: setup build test test-one lint fmt run schema clean
 
 setup:
 	go mod download
@@ -27,6 +27,10 @@ fmt:
 
 run: build
 	./$(BIN) $(ARGS)
+
+# Regenerate contracts/schema/*.json from internal/contracts. make test fails if they are stale.
+schema:
+	go run ./cmd/argus schema --out contracts/schema
 
 clean:
 	rm -rf bin

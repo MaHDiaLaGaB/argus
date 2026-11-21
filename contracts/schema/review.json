@@ -1,0 +1,109 @@
+{
+  "$id": "review.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus ReviewReport contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "checklist": {
+      "additionalProperties": false,
+      "properties": {
+        "in_scope": {
+          "type": "boolean"
+        },
+        "no_new_deps": {
+          "type": "boolean"
+        },
+        "reuse_ok": {
+          "type": "boolean"
+        },
+        "security_ok": {
+          "type": "boolean"
+        },
+        "smallest_diff": {
+          "type": "boolean"
+        },
+        "test_proves_change": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "in_scope",
+        "smallest_diff",
+        "test_proves_change",
+        "no_new_deps",
+        "reuse_ok",
+        "security_ok"
+      ],
+      "type": "object"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "severity",
+          "file",
+          "line",
+          "rule",
+          "text"
+        ],
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "pr": {
+      "type": "string"
+    },
+    "reviewer_model": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string"
+    },
+    "work_id": {
+      "type": "string"
+    },
+    "writer_model": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "work_id",
+    "pr",
+    "reviewer_model",
+    "writer_model",
+    "verdict",
+    "findings",
+    "checklist"
+  ],
+  "title": "ReviewReport",
+  "type": "object"
+}

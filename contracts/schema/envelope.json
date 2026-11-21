@@ -1,0 +1,291 @@
+{
+  "$id": "envelope.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus TaskEnvelope contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "attempt": {
+      "type": "integer"
+    },
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_minutes": {
+          "type": "integer"
+        },
+        "max_tokens": {
+          "type": "integer"
+        },
+        "max_usd": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "max_usd",
+        "max_tokens",
+        "max_minutes"
+      ],
+      "type": "object"
+    },
+    "context_packet": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "contract": {
+          "type": "string"
+        },
+        "file_summaries": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "summary"
+            ],
+            "type": "object"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "line_cap": {
+          "type": "integer"
+        },
+        "memory_snippets": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "prior_attempts": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "attempt": {
+                "type": "integer"
+              },
+              "failure": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "attempt",
+              "model",
+              "failure"
+            ],
+            "type": "object"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "proof_test": {
+          "type": "string"
+        },
+        "reuse_candidates": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "repo": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "why": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "repo",
+              "symbol",
+              "path",
+              "why"
+            ],
+            "type": "object"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "rules_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "scope_files": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "skills": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "skill_id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "skill_id",
+              "version"
+            ],
+            "type": "object"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "outcome",
+        "contract",
+        "acceptance_criteria",
+        "scope_files",
+        "line_cap",
+        "proof_test",
+        "rules_refs",
+        "file_summaries",
+        "reuse_candidates",
+        "prior_attempts",
+        "skills",
+        "memory_snippets"
+      ],
+      "type": "object"
+    },
+    "model": {
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "type": "string"
+        },
+        "fallbacks": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "backend",
+        "fallbacks"
+      ],
+      "type": "object"
+    },
+    "permissions": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "role": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "tier": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "track": {
+      "type": "string"
+    },
+    "work_id": {
+      "type": "string"
+    },
+    "workspace": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "sandbox_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sandbox_id",
+        "base",
+        "branch"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "work_id",
+    "role",
+    "track",
+    "tier",
+    "attempt",
+    "model",
+    "context_packet",
+    "workspace",
+    "permissions",
+    "budget"
+  ],
+  "title": "TaskEnvelope",
+  "type": "object"
+}

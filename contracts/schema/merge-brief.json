@@ -1,0 +1,99 @@
+{
+  "$id": "merge-brief.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "argus MergeBrief contract, schema_version 3. Generated from internal/contracts; do not edit.",
+  "properties": {
+    "after_merge": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "evidence": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "human_checks": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "merge_instructions": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "one_line": {
+      "type": "string"
+    },
+    "pr": {
+      "type": "string"
+    },
+    "risk": {
+      "type": "string"
+    },
+    "risk_notes": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "rollback": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "3",
+      "type": "string"
+    },
+    "tier": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "what_changed": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "pr",
+    "tier",
+    "one_line",
+    "what_changed",
+    "evidence",
+    "risk",
+    "risk_notes",
+    "merge_instructions",
+    "after_merge",
+    "rollback",
+    "human_checks"
+  ],
+  "title": "MergeBrief",
+  "type": "object"
+}
