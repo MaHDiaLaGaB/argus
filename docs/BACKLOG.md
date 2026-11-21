@@ -1,41 +1,42 @@
 # argus backlog: epics and issues
 
-Generated from one definition; `scripts/create-github-issues.sh` creates the same items in GitHub.
+Every epic and issue is on GitHub ([issues](https://github.com/MaHDiaLaGaB/argus/issues)): each issue is a sub-issue of its epic, titled `[E02.01] ...`.
+GitHub tracks live status; PRs close their issue with `Closes #N`. This file is the plan and keeps the done column in step.
 Tier = the pipeline tier the work itself would get. Size: S (< 1 day), M (1-3 days), L (3-5 days).
 
 **23 epics, 107 issues, 7 done.**
 
 | Epic | Phase | Issues |
 |---|---|---|
-| E01 Foundation and contracts | 0 | 6 |
-| E02 Model clients (plain HTTPS) | 0 | 8 |
-| E03 Sandbox runner | 0 | 5 |
-| E04 Agents core | 0 | 7 |
-| E05 GitHub layer | 0 | 7 |
-| E06 Templates v1 (be-go, be-fastapi) | 0 | 4 |
-| E07 Phase 0 CLI and acceptance | 0 | 4 |
-| E08 Pipeline CI gates (build once, freeze) | 1 | 7 |
-| E09 Orchestrator and workflows | 1 | 7 |
-| E10 Intake | 1 | 4 |
-| E11 Tracks and communication | 1 | 4 |
-| E12 Storage and observability | 1 | 4 |
-| E13 Templates v2 and argus init | 1 | 5 |
-| E14 Existing repo onboarding | 2 | 4 |
-| E15 New project flow | 2 | 4 |
-| E16 Code index and reuse | 2 | 4 |
-| E17 Scoring and routing | 2 | 4 |
-| E18 Mobile templates | 2 | 5 |
-| E19 Cursor backend | 2 | 2 |
-| E20 Multi-repo | 3 | 3 |
-| E21 Learning: skills and memory | 3 | 4 |
-| E22 Security hardening | 3 | 3 |
-| E23 Pilot rollout | 4 | 2 |
+| [E01](https://github.com/MaHDiaLaGaB/argus/issues/2) Foundation and contracts | 0 | 6 |
+| [E02](https://github.com/MaHDiaLaGaB/argus/issues/9) Model clients (plain HTTPS) | 0 | 8 |
+| [E03](https://github.com/MaHDiaLaGaB/argus/issues/18) Sandbox runner | 0 | 5 |
+| [E04](https://github.com/MaHDiaLaGaB/argus/issues/24) Agents core | 0 | 7 |
+| [E05](https://github.com/MaHDiaLaGaB/argus/issues/32) GitHub layer | 0 | 7 |
+| [E06](https://github.com/MaHDiaLaGaB/argus/issues/40) Templates v1 (be-go, be-fastapi) | 0 | 4 |
+| [E07](https://github.com/MaHDiaLaGaB/argus/issues/45) Phase 0 CLI and acceptance | 0 | 4 |
+| [E08](https://github.com/MaHDiaLaGaB/argus/issues/50) Pipeline CI gates (build once, freeze) | 1 | 7 |
+| [E09](https://github.com/MaHDiaLaGaB/argus/issues/58) Orchestrator and workflows | 1 | 7 |
+| [E10](https://github.com/MaHDiaLaGaB/argus/issues/66) Intake | 1 | 4 |
+| [E11](https://github.com/MaHDiaLaGaB/argus/issues/71) Tracks and communication | 1 | 4 |
+| [E12](https://github.com/MaHDiaLaGaB/argus/issues/76) Storage and observability | 1 | 4 |
+| [E13](https://github.com/MaHDiaLaGaB/argus/issues/81) Templates v2 and argus init | 1 | 5 |
+| [E14](https://github.com/MaHDiaLaGaB/argus/issues/87) Existing repo onboarding | 2 | 4 |
+| [E15](https://github.com/MaHDiaLaGaB/argus/issues/92) New project flow | 2 | 4 |
+| [E16](https://github.com/MaHDiaLaGaB/argus/issues/97) Code index and reuse | 2 | 4 |
+| [E17](https://github.com/MaHDiaLaGaB/argus/issues/102) Scoring and routing | 2 | 4 |
+| [E18](https://github.com/MaHDiaLaGaB/argus/issues/107) Mobile templates | 2 | 5 |
+| [E19](https://github.com/MaHDiaLaGaB/argus/issues/113) Cursor backend | 2 | 2 |
+| [E20](https://github.com/MaHDiaLaGaB/argus/issues/116) Multi-repo | 3 | 3 |
+| [E21](https://github.com/MaHDiaLaGaB/argus/issues/120) Learning: skills and memory | 3 | 4 |
+| [E22](https://github.com/MaHDiaLaGaB/argus/issues/125) Security hardening | 3 | 3 |
+| [E23](https://github.com/MaHDiaLaGaB/argus/issues/129) Pilot rollout | 4 | 2 |
 
 ## Phase 0 - One ticket end to end
 
 Go skeleton, contracts, model clients, sandbox, Writer + Reviewer, GitHub layer, first templates. Accept: 6 of 10 benchmark tickets reach a green tier-gate with no human edits.
 
-### E01: Foundation and contracts
+### E01: Foundation and contracts ([#2](https://github.com/MaHDiaLaGaB/argus/issues/2))
 
 Repo skeleton, contracts every component speaks, config and policy loading.
 
@@ -48,7 +49,7 @@ Repo skeleton, contracts every component speaks, config and policy loading.
 | E01.05 | **Model, price and allowlist config v1**: config/models.yaml, pricing.yaml, benchmarks.yaml and policy/allowlist.yaml filled from ARCHITECTURE Section 9 with TODO(verify) markers. | 1 | S | done | Every model in allowlist has a price; Tier floors encoded |
 | E01.06 | **Secret scanning and supply chain for this repo**: gitleaks in CI, gosec, Dependabot for Go modules and Actions, pinned action SHAs. | 0 | S | done | CI fails on a planted fake secret |
 
-### E02: Model clients (plain HTTPS)
+### E02: Model clients (plain HTTPS) ([#9](https://github.com/MaHDiaLaGaB/argus/issues/9))
 
 Thin clients for Claude, GPT and Grok with budgets, pricing and logging. No AI frameworks.
 
@@ -63,7 +64,7 @@ Thin clients for Claude, GPT and Grok with budgets, pricing and logging. No AI f
 | E02.07 | **Fallback chain**: On 429/5xx/timeout: retry, then next model in fallbacks, never below tier floor, keep cross-family rule. | 2 | M | todo | Outage simulation falls back correctly; Property test: never below floor |
 | E02.08 | **Response recorder for tests**: Record/replay HTTP fixtures so tests never call real APIs; secrets stripped from recordings. | 1 | S | todo | No API key in any fixture (grep test) |
 
-### E03: Sandbox runner
+### E03: Sandbox runner ([#18](https://github.com/MaHDiaLaGaB/argus/issues/18))
 
 Run any template or repo's make verbs in Docker and return parsed results.
 
@@ -75,7 +76,7 @@ Run any template or repo's make verbs in Docker and return parsed results.
 | E03.04 | **Test proof check**: Run proof test on parent commit (must fail) and on change (must pass). | 2 | S | todo | Proof result matches WriterResult.proof |
 | E03.05 | **Deterministic ticket check**: Apply WriterResult.CheckAgainst (scope, line cap, proof, new deps) before any review. | 1 | S | todo | Violations block review |
 
-### E04: Agents core
+### E04: Agents core ([#24](https://github.com/MaHDiaLaGaB/argus/issues/24))
 
 One small tool-use loop and a policy engine shared by every LLM agent.
 
@@ -89,7 +90,7 @@ One small tool-use loop and a policy engine shared by every LLM agent.
 | E04.06 | **Model output validation**: Every model output parsed into a contract; invalid output retried once with the error, then failed. | 1 | S | todo | Invalid JSON never enters pipeline |
 | E04.07 | **docs/model-calls.md enforcement**: Test that fails if a call site to internal/llm is not listed in docs/model-calls.md. | 1 | S | todo | Unlisted call site fails CI |
 
-### E05: GitHub layer
+### E05: GitHub layer ([#32](https://github.com/MaHDiaLaGaB/argus/issues/32))
 
 Separate Writer, Reviewer and Gate identities; PRs, checks and merge brief.
 
@@ -103,7 +104,7 @@ Separate Writer, Reviewer and Gate identities; PRs, checks and merge brief.
 | E05.06 | **Merge brief**: Fill MergeBrief from data; cheap model only for one_line and risk_notes; post as PR comment. | 1 | S | todo | Valid MergeBrief on every green PR |
 | E05.07 | **Read check results and webhooks**: Receive check_run / pull_request / review events; verify signatures; dedupe. | 3 | M | todo | Forged webhook rejected |
 
-### E06: Templates v1 (be-go, be-fastapi)
+### E06: Templates v1 (be-go, be-fastapi) ([#40](https://github.com/MaHDiaLaGaB/argus/issues/40))
 
 First two templates with the shared verbs and ready profiles.
 
@@ -114,7 +115,7 @@ First two templates with the shared verbs and ready profiles.
 | E06.03 | **be-fastapi template**: Python + FastAPI + uv + SQLAlchemy/Alembic + ruff + mypy + pytest, same structure as be-go. | 0 | M | todo | make setup build lint test passes on a fresh copy |
 | E06.04 | **Template self-test CI**: argus-templates CI generates each template and runs all verbs. | 0 | S | todo | Broken template fails CI |
 
-### E07: Phase 0 CLI and acceptance
+### E07: Phase 0 CLI and acceptance ([#45](https://github.com/MaHDiaLaGaB/argus/issues/45))
 
 Tie it together and prove it on real tickets.
 
@@ -129,7 +130,7 @@ Tie it together and prove it on real tickets.
 
 Frozen pipeline CI gates, Temporal orchestrator, intake, all tracks, more templates.
 
-### E08: Pipeline CI gates (build once, freeze)
+### E08: Pipeline CI gates (build once, freeze) ([#50](https://github.com/MaHDiaLaGaB/argus/issues/50))
 
 Central reusable workflows in argus-gates, proven by the gate test suite, then frozen.
 
@@ -143,7 +144,7 @@ Central reusable workflows in argus-gates, proven by the gate test suite, then f
 | E08.06 | **Gate test suite**: argus-gates/gate-tests: known-bad PR fixtures; all must fail. | 0 | M | todo | Suite green = every fixture blocked |
 | E08.07 | **Pin and freeze gates**: Version tag, repos call pinned version, rulesets block agent writes to gates and policy. | 4 | S | todo | Writer App push to gates rejected |
 
-### E09: Orchestrator and workflows
+### E09: Orchestrator and workflows ([#58](https://github.com/MaHDiaLaGaB/argus/issues/58))
 
 Durable runs: decompose, tier, route, control loop, fault check.
 
@@ -157,7 +158,7 @@ Durable runs: decompose, tier, route, control loop, fault check.
 | E09.06 | **Fault check and ci-suspect**: Rerun, base-branch run, sandbox repro, cross-family code question; flag ci-suspect with CI diagnosis; /ci-ok command. | 3 | M | todo | Planted CI fault flagged, planted code fault not |
 | E09.07 | **grew_too_big re-split**: Writer can return grew_too_big; Decomposer re-splits without penalty. | 2 | S | todo | Re-split tickets pass validation |
 
-### E10: Intake
+### E10: Intake ([#66](https://github.com/MaHDiaLaGaB/argus/issues/66))
 
 GitHub, Slack and CLI requests become Tickets.
 
@@ -168,7 +169,7 @@ GitHub, Slack and CLI requests become Tickets.
 | E10.03 | **Comment commands**: /tier N, /approve, /reject, /revise, /retry, /stop, /teach, /repo, /ci-ok. | 2 | M | todo | Each command audited with actor |
 | E10.04 | **Generic webhook (Grok Bot routines)**: HMAC-signed webhook for external routines. | 2 | S | todo | Bad signature rejected |
 
-### E11: Tracks and communication
+### E11: Tracks and communication ([#71](https://github.com/MaHDiaLaGaB/argus/issues/71))
 
 All tracks with the hub model and Security veto.
 
@@ -179,7 +180,7 @@ All tracks with the hub model and Security veto.
 | E11.03 | **Security track and veto**: Security review on Tier 2+; veto blocks tier-gate until resolved. | 3 | M | todo | Veto blocks merge in tests |
 | E11.04 | **Tier 0 devops writer**: Project CI changes written only by best model, CI-only PRs, human review required. | 3 | S | todo | Mixed CI and code PR blocked |
 
-### E12: Storage and observability
+### E12: Storage and observability ([#76](https://github.com/MaHDiaLaGaB/argus/issues/76))
 
 Postgres state, traces and cost reporting.
 
@@ -190,7 +191,7 @@ Postgres state, traces and cost reporting.
 | E12.03 | **Metrics and dashboards**: Prometheus metrics; Grafana dashboards: cost, first-pass rate, escalations, flaky checks. | 1 | S | todo | Dashboard JSON in repo |
 | E12.04 | **Daily cost report**: Slack message with spend by repo, tier and model. | 1 | S | todo | Report matches DB totals |
 
-### E13: Templates v2 and argus init
+### E13: Templates v2 and argus init ([#81](https://github.com/MaHDiaLaGaB/argus/issues/81))
 
 Node and web templates plus the init command.
 
@@ -206,7 +207,7 @@ Node and web templates plus the init command.
 
 Existing repos, new projects with argus init, code index and reuse, scoring and routing, mobile templates, Cursor backend.
 
-### E14: Existing repo onboarding
+### E14: Existing repo onboarding ([#87](https://github.com/MaHDiaLaGaB/argus/issues/87))
 
 Connect repos that already exist.
 
@@ -217,7 +218,7 @@ Connect repos that already exist.
 | E14.03 | **Full-history secret scan**: gitleaks over history; findings reported for human rotation. | 3 | S | todo | Planted historical secret found |
 | E14.04 | **Onboarding PR**: docs/overview.md, AGENTS.md, PR template, project CI calling central gates (Tier 0, human review). | 0 | M | todo | 4 of 6 sample repos onboard |
 
-### E15: New project flow
+### E15: New project flow ([#92](https://github.com/MaHDiaLaGaB/argus/issues/92))
 
 From plain-text idea to a running walking skeleton.
 
@@ -228,7 +229,7 @@ From plain-text idea to a running walking skeleton.
 | E15.03 | **Bootstrap with argus init**: Generate code, open bootstrap PR, verify profile, post protection settings. | 0 | M | todo | Bootstrap PR green |
 | E15.04 | **Milestone backlog and demo reports**: Milestones to WorkTickets as GitHub issues; demo report and approval per milestone. | 2 | M | todo | Walking skeleton merged for a sample PRD |
 
-### E16: Code index and reuse
+### E16: Code index and reuse ([#97](https://github.com/MaHDiaLaGaB/argus/issues/97))
 
 Find existing code before writing new code.
 
@@ -239,7 +240,7 @@ Find existing code before writing new code.
 | E16.03 | **Reuse candidates and decisions**: Add candidates to context packet; Writer must answer each; similarity check on new public functions. | 2 | M | todo | Near-duplicate helper blocked in review |
 | E16.04 | **File summary cache**: Cheap-model summaries keyed by file hash; only changed files summarized. | 1 | S | todo | Second run makes no summary calls |
 
-### E17: Scoring and routing
+### E17: Scoring and routing ([#102](https://github.com/MaHDiaLaGaB/argus/issues/102))
 
 Scores decide which model does what.
 
@@ -250,7 +251,7 @@ Scores decide which model does what.
 | E17.03 | **Score-based router**: Pick by expected score minus cost; 10% exploration at Tiers 1-2; none at 0, 3, 4. | 3 | M | todo | Property tests: allowlist, floor, cross-family |
 | E17.04 | **Weekly routing report**: Slack report of current routing table and changes with numbers. | 1 | S | todo | Report generated from stats |
 
-### E18: Mobile templates
+### E18: Mobile templates ([#107](https://github.com/MaHDiaLaGaB/argus/issues/107))
 
 Flutter, React Native, Android and iOS.
 
@@ -262,7 +263,7 @@ Flutter, React Native, Android and iOS.
 | E18.04 | **mob-ios-swift template and macOS runners**: SwiftUI + SPM + SwiftLint + XCTest; CI on macOS runners or Mac build host. | 0 | L | todo | Verbs pass on macOS runner |
 | E18.05 | **Test parsers: Flutter, Gradle, XCTest**: Failing tests only. | 1 | S | todo | Parser tests on samples |
 
-### E19: Cursor backend
+### E19: Cursor backend ([#113](https://github.com/MaHDiaLaGaB/argus/issues/113))
 
 Optional Writer backend through Cursor Cloud Agents API.
 
@@ -275,7 +276,7 @@ Optional Writer backend through Cursor Cloud Agents API.
 
 Org map and change sets, skills and memory, security hardening.
 
-### E20: Multi-repo
+### E20: Multi-repo ([#116](https://github.com/MaHDiaLaGaB/argus/issues/116))
 
 Work across several repos in an org.
 
@@ -285,7 +286,7 @@ Work across several repos in an org.
 | E20.02 | **Repo resolver**: Search + org map; ask when confidence < 0.7. | 2 | M | todo | >= 18 of 20 benchmark requests resolved correctly |
 | E20.03 | **Change sets and merge order**: Linked PRs, provider before consumer, blocked consumer PRs, integration check. | 3 | L | todo | Two-repo request merged in order |
 
-### E21: Learning: skills and memory
+### E21: Learning: skills and memory ([#120](https://github.com/MaHDiaLaGaB/argus/issues/120))
 
 Turn repeated lessons into reusable skills.
 
@@ -296,7 +297,7 @@ Turn repeated lessons into reusable skills.
 | E21.03 | **Replay evaluation and promotion**: Replay 5-10 past tickets with and without a skill; promote only on lift; human approval for org scope. | 3 | L | todo | No skill promoted without passing evals |
 | E21.04 | **Project memory**: Facts per repo after 2+ occurrences or /teach. | 2 | S | todo | No personal data stored |
 
-### E22: Security hardening
+### E22: Security hardening ([#125](https://github.com/MaHDiaLaGaB/argus/issues/125))
 
 Prove the safety claims.
 
@@ -310,7 +311,7 @@ Prove the safety claims.
 
 Humans roll out to one pilot repo, then expand.
 
-### E23: Pilot rollout
+### E23: Pilot rollout ([#129](https://github.com/MaHDiaLaGaB/argus/issues/129))
 
 Humans roll out to one real repo, then expand.
 
