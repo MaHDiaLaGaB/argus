@@ -402,6 +402,49 @@ func TestDropsForeignOpaque(t *testing.T) {
 	}
 }
 
+// A redirect must never carry the API key or the prompt to another host.
+// (net/http strips Authorization on a cross-host redirect, but not x-api-key.)
+func TestRedirectsAreNotFollowed(t *testing.T) {
+	for _, status := range []int{301, 302, 303, 307, 308} {
+		hits := 0
+		other := httptest.NewServer(http.HandlerFunc(func(http.ResponseWriter, *http.Request) { hits++ }))
+		api := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.Redirect(w, r, other.URL+"/v1/messages", status)
+		}))
+		mine := &http.Client{}
+		for name, hc := range map[string]*http.Client{"default client": nil, "caller's client": mine} {
+			c, err := New(Config{APIKey: testKey, BaseURL: api.URL, MaxRetries: -1, HTTPClient: hc})
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, err = c.Complete(context.Background(), textRequest())
+			if e, ok := errors.AsType[*llm.Error](err); !ok || e.Kind != llm.ErrInvalidRequest || e.Status != status {
+				t.Errorf("%d %s: want ErrInvalidRequest, got %v", status, name, err)
+			}
+		}
+		if hits != 0 {
+			t.Errorf("%d: other host received %d requests", status, hits)
+		}
+		if mine.CheckRedirect != nil {
+			t.Error("the caller's http.Client must not be modified")
+		}
+		other.Close()
+		api.Close()
+	}
+}
+
+// The key and prompt travel only over TLS, except to this machine (tests, local proxies).
+func TestBaseURLMustBeHTTPS(t *testing.T) {
+	for u, ok := range map[string]bool{
+		"https://api.anthropic.com": true, "http://127.0.0.1:8080": true, "http://localhost:8080": true, "http://[::1]:9": true,
+		"http://api.anthropic.com": false, "http://localhost.evil.test": false, "ftp://x": false, "api.anthropic.com": false, "https://": false,
+	} {
+		if _, err := New(Config{APIKey: testKey, BaseURL: u}); (err == nil) != ok {
+			t.Errorf("%s: err = %v, want ok = %v", u, err, ok)
+		}
+	}
+}
+
 func TestNewNeedsKey(t *testing.T) {
 	if _, err := New(Config{}); err == nil {
 		t.Fatal("missing API key must be an error")

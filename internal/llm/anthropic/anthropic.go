@@ -18,6 +18,7 @@ import (
 	"math/rand/v2"
 	"net"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -68,14 +69,22 @@ func New(cfg Config) (*Client, error) {
 	if strings.TrimSpace(cfg.APIKey) == "" {
 		return nil, errors.New("anthropic: API key is required")
 	}
-	c := &Client{apiKey: cfg.APIKey, baseURL: strings.TrimRight(cfg.BaseURL, "/"), http: cfg.HTTPClient,
+	c := &Client{apiKey: cfg.APIKey, baseURL: strings.TrimRight(cfg.BaseURL, "/"),
 		maxRetries: cfg.MaxRetries, sleep: cfg.sleep}
 	if c.baseURL == "" {
 		c.baseURL = DefaultBaseURL
 	}
-	if c.http == nil {
-		c.http = &http.Client{Timeout: 10 * time.Minute}
+	if err := checkBaseURL(c.baseURL); err != nil {
+		return nil, err
 	}
+	hc := http.Client{Timeout: 10 * time.Minute}
+	if cfg.HTTPClient != nil {
+		hc = *cfg.HTTPClient // a copy, so the caller's client is not changed
+	}
+	// Never follow redirects: net/http would resend x-api-key and the prompt to
+	// whatever host the redirect names.
+	hc.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	c.http = &hc
 	switch {
 	case c.maxRetries == 0:
 		c.maxRetries = 2
@@ -86,6 +95,20 @@ func New(cfg Config) (*Client, error) {
 		c.sleep = sleepCtx
 	}
 	return c, nil
+}
+
+// checkBaseURL requires TLS, except for a loopback host.
+func checkBaseURL(raw string) error {
+	u, err := url.Parse(raw)
+	if err != nil || u.Hostname() == "" {
+		return fmt.Errorf("anthropic: base URL %q is not an absolute URL", raw)
+	}
+	ip := net.ParseIP(u.Hostname())
+	loopback := u.Hostname() == "localhost" || (ip != nil && ip.IsLoopback())
+	if u.Scheme == "https" || (u.Scheme == "http" && loopback) {
+		return nil
+	}
+	return fmt.Errorf("anthropic: base URL %q must use https", raw)
 }
 
 // Complete implements llm.Client.
@@ -211,7 +234,7 @@ func classify(status int, body []byte) (llm.ErrorKind, string) {
 		return llm.ErrOverloaded, msg
 	case status >= 500:
 		return llm.ErrServer, msg
-	default: // 400, 404, 413 and anything else from 4xx
+	default: // 400, 404, 413, anything else from 4xx, and redirects (never followed)
 		return llm.ErrInvalidRequest, msg
 	}
 }
