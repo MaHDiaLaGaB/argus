@@ -130,13 +130,17 @@ func cloneRequest(r Request) Request {
 				rc := *res
 				parts[j].ToolResult = &rc
 			}
-			if o := parts[j].Opaque; o != nil {
-				oc := *o
-				oc.Raw = slices.Clone(o.Raw)
-				parts[j].Opaque = &oc
-			}
+			parts[j].Opaque = parts[j].Opaque.clone()
+			parts[j].Native = parts[j].Native.clone()
 		}
 		r.Messages[i].Parts = parts
 	}
 	return r
+}
+
+func (o *Opaque) clone() *Opaque {
+	if o == nil {
+		return nil
+	}
+	return &Opaque{Provider: o.Provider, Raw: slices.Clone(o.Raw)}
 }

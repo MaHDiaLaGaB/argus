@@ -89,6 +89,15 @@ func TestRequestValidate(t *testing.T) {
 		{"opaque bad json", func(r *Request) {
 			r.Messages[1].Parts = append(r.Messages[1].Parts, Part{Opaque: &Opaque{Provider: "anthropic", Raw: json.RawMessage(`{`)}})
 		}, "needs a provider and valid JSON"},
+		{"native item on assistant text", func(r *Request) {
+			r.Messages[1].Parts[0].Native = &Opaque{Provider: "openai", Raw: json.RawMessage(`{}`)}
+		}, ""},
+		{"native from user", func(r *Request) {
+			r.Messages[0].Parts[0].Native = &Opaque{Provider: "openai", Raw: json.RawMessage(`{}`)}
+		}, "native item only goes with assistant text or a tool call"},
+		{"native bad json", func(r *Request) {
+			r.Messages[1].Parts[0].Native = &Opaque{Provider: "openai", Raw: json.RawMessage(`{`)}
+		}, "native item needs a provider and valid JSON"},
 		{"cache history without prefix", func(r *Request) { r.Cache = CacheHint{History: true} }, "cache.history needs cache.prefix"},
 	}
 	for _, tc := range cases {
@@ -231,8 +240,13 @@ func TestFakeHonoursContext(t *testing.T) {
 func TestFakeRecordsCopies(t *testing.T) {
 	f := NewFake(Step{Response: TextResponse("ok", Usage{})})
 	req := validRequest()
+	req.Messages[1].Parts[0].Native = &Opaque{Provider: "openai", Raw: json.RawMessage(`{}`)}
 	if _, err := f.Complete(context.Background(), req); err != nil {
 		t.Fatal(err)
+	}
+	req.Messages[1].Parts[0].Native.Raw[0] = 'X'
+	if string(f.Calls()[0].Messages[1].Parts[0].Native.Raw) != "{}" {
+		t.Fatal("recorded native item was changed through the caller's slice")
 	}
 	req.Messages[0].Parts[0].Text = "changed"
 	req.Tools[0].Name = "changed"

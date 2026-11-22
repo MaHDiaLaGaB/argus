@@ -93,6 +93,11 @@ type Part struct {
 	ToolCall   *ToolCall
 	ToolResult *ToolResult
 	Opaque     *Opaque
+
+	// Native is the provider's own form of an assistant text or tool call, kept
+	// for providers that need their output items replayed as returned. The same
+	// provider sends Native instead of Text or ToolCall; others ignore it.
+	Native *Opaque
 }
 
 // Opaque is a provider block argus does not interpret, such as a thinking
@@ -103,6 +108,8 @@ type Opaque struct {
 	Provider string          // provider that produced the block, for example "anthropic"
 	Raw      json.RawMessage // the block exactly as received
 }
+
+func (o *Opaque) valid() bool { return o.Provider != "" && json.Valid(o.Raw) }
 
 // ToolCall is the model asking to run a tool.
 type ToolCall struct {
@@ -303,12 +310,20 @@ func (r *Request) Validate() error {
 				add("%s must have exactly one of text, tool_call, tool_result, opaque", pat)
 				continue
 			}
+			if n := part.Native; n != nil {
+				if m.Role != RoleAssistant || (part.Text == "" && part.ToolCall == nil) {
+					add("%s: native item only goes with assistant text or a tool call", pat)
+				}
+				if !n.valid() {
+					add("%s: native item needs a provider and valid JSON", pat)
+				}
+			}
 			switch {
 			case part.Opaque != nil:
 				if m.Role != RoleAssistant {
 					add("%s: opaque blocks only come from the assistant", pat)
 				}
-				if part.Opaque.Provider == "" || !json.Valid(part.Opaque.Raw) {
+				if !part.Opaque.valid() {
 					add("%s: opaque block needs a provider and valid JSON", pat)
 				}
 			case part.ToolCall != nil:
