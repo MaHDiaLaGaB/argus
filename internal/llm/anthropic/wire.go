@@ -51,7 +51,8 @@ type wireBlock struct {
 	Raw json.RawMessage `json:"-"`
 }
 
-// MarshalJSON sends opaque blocks unchanged. Cache markers never land on one:
+// MarshalJSON sends opaque blocks with their JSON value unchanged (encoding/json
+// may re-space it or escape <, > and &, which does not change the value). Cache markers never land on one:
 // they go on the last block of the last message, which is always a user message.
 func (b wireBlock) MarshalJSON() ([]byte, error) {
 	if b.Raw != nil {
